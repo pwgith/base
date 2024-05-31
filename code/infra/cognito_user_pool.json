@@ -1,0 +1,31 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+      "MyCognitoUserPool": {
+        "Type": "AWS::Cognito::UserPool",
+        "Properties": {
+          "UserPoolName": "MyUserPool",
+          "Policies": {
+            "PasswordPolicy": {
+              "MinimumLength": 8,
+              "RequireUppercase": true,
+              "RequireLowercase": true,
+              "RequireNumbers": true,
+              "RequireSymbols": true
+            }
+          },
+          "Schema": [
+            {
+              "Name": "email",
+              "Required": true,
+              "Mutable": true,
+              "AttributeDataType": "String"
+            }
+          ],
+          "AutoVerifiedAttributes": [
+            "email"
+          ]
+        }
+      }
+    }
+  }
