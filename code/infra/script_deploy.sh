@@ -1,0 +1,1 @@
+aws cloudformation create-stack --debug --stack-name MyCognitoUserPoolStack --template-body ./cognito_user_pool.json
