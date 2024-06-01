@@ -1,0 +1,45 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Resources": {
+    "CognitoUserPool": {
+      "Type": "AWS::Cognito::UserPool",
+      "Properties": {
+        "UserPoolName": "cf_users",
+        "Policies": {
+          "PasswordPolicy": {
+            "MinimumLength": 8,
+            "RequireUppercase": true,
+            "RequireLowercase": true,
+            "RequireNumbers": true,
+            "RequireSymbols": false
+          }
+        },
+        "AutoVerifiedAttributes": ["email"],
+        "Schema": [
+          {
+            "AttributeDataType": "String",
+            "Name": "email",
+            "Required": true,
+            "Mutable": true
+          }
+        ],
+        "UsernameAttributes": ["email"],
+        "EmailVerificationSubject": "Your verification code",
+        "EmailVerificationMessage": "Your verification code is {####}",
+        "MfaConfiguration": "OFF",
+        "DeviceConfiguration": {
+          "ChallengeRequiredOnNewDevice": false,
+          "DeviceOnlyRememberedOnUserPrompt": true
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "UserPoolId": {
+      "Description": "Cognito User Pool ID",
+      "Value": {
+        "Ref": "CognitoUserPool"
+      }
+    }
+  }
+}
