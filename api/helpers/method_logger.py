@@ -1,6 +1,7 @@
 """
 This module provides a context manager for logging method entry and exit.
 """
+from datetime import datetime
 
 class MethodLogger:
     """
@@ -26,6 +27,8 @@ class MethodLogger:
         """
         self._logger = logger
         self._method_name = method_name
+        self._start_time = datetime.now()
+        self._end_time = datetime.now()
 
     def __enter__(self):
         """
@@ -34,6 +37,7 @@ class MethodLogger:
         Returns:
             The MethodLogger instance.
         """
+        self._start_time = datetime.now()
         self._logger.info(f"Entering {self._method_name}")
         return self
 
@@ -46,4 +50,10 @@ class MethodLogger:
             exc_val: The exception instance raised, if any.
             exc_tb: The traceback object associated with the exception, if any.
         """
-        self._logger.info(f"Exiting {self._method_name}")
+        self._end_time = datetime.now()
+        elpased_time = self._end_time - self._start_time
+        print("E:", exc_type, exc_val, exc_tb)
+        exception_string = "No Exception"
+        if exc_type is not None:
+            exception_string = f"{exc_type.__name__}: {exc_val}"
+        self._logger.info(f"Exiting {self._method_name}, Elapsed time: {elpased_time}, Exception: {exception_string}")
