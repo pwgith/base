@@ -19,7 +19,3 @@ def test_enter_exit_logging_when_info_off(caplog):
         assert "Entering test_method_execution" not in caplog.text
         caplog.clear()
     assert "Exiting test_method_execution" not in caplog.text
-
-
-if __name__ == '__main__':
-    unittest.main()
