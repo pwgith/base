@@ -1,3 +1,3 @@
 import logging
 
-logging.warn("Hi")
+logging.warning("Hi")
