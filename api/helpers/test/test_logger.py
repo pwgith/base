@@ -1,8 +1,5 @@
-import unittest
-from unittest.mock import MagicMock
 from helpers.method_logger import MethodLogger
 import logging
-
 logger = logging.getLogger(__name__)
 
 
