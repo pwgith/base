@@ -1,3 +1,5 @@
 aws/*
 **/.terraform/*
 **/.terragrunt-cache/*
+**/__pycache__/*
+**/.pytest_cache/*
