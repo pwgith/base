@@ -1,5 +1,5 @@
 import pytest
-from helpers.log_helper import set_standard_log_fields, prepare_log_string, reset_standard_log_fields
+from helpers.log_helpers.log_helper import set_standard_log_fields, prepare_log_string, reset_standard_log_fields
 
 def test_prepare_log_string_full():
     # Test preparing log string with all log fields set
