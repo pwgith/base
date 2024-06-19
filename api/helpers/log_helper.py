@@ -39,6 +39,7 @@ def set_standard_log_fields(xray_trace_id=None, trace_id=None, parent_span_id=No
         operation_name (str): The operation name.
         api_version (str): The API version.
     """
+    reset_standard_log_fields()
     global _xray_trace_id, _trace_id, _parent_span_id, _span_id, _session_id, \
         _organisation_id, _organisation_name, _user_id, _customer_id, _service_name,\
          _operation_name, _api_version
