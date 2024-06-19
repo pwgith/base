@@ -3,6 +3,7 @@ This module provides helper functions for setting and resetting standard log fie
 and preparing the log string with the current values of the standard log fields.
 """
 
+# pylint: disable=invalid-name
 _xray_trace_id = "Undefined"
 _trace_id = "Undefined"
 _parent_span_id = "Undefined"
@@ -15,9 +16,11 @@ _customer_id = "Undefined"
 _service_name = "Undefined"
 _operation_name = "Undefined"
 _api_version = "Undefined"
+# pylint: enable=invalid-name
 
-def set_standard_log_fields(xray_trace_id=None, trace_id=None, parent_span_id=None, span_id=None, session_id=None,
-                            organisation_id=None, organisation_name=None, user_id=None, customer_id=None,
+def set_standard_log_fields(xray_trace_id=None, trace_id=None, parent_span_id=None, 
+                            span_id=None, session_id=None, organisation_id=None, 
+                            organisation_name=None, user_id=None, customer_id=None,
                             service_name=None, operation_name=None, api_version=None):
     """
     Sets the standard log fields with the provided values.
@@ -36,8 +39,9 @@ def set_standard_log_fields(xray_trace_id=None, trace_id=None, parent_span_id=No
         operation_name (str): The operation name.
         api_version (str): The API version.
     """
-    global _xray_trace_id, _trace_id, _parent_span_id, _span_id, _session_id, _organisation_id, _organisation_name, \
-        _user_id, _customer_id, _service_name, _operation_name, _api_version
+    global _xray_trace_id, _trace_id, _parent_span_id, _span_id, _session_id, \
+        _organisation_id, _organisation_name, _user_id, _customer_id, _service_name,\
+         _operation_name, _api_version
 
     if xray_trace_id is not None:
         _xray_trace_id = xray_trace_id
@@ -91,8 +95,9 @@ def reset_standard_log_fields():
     Resets all the standard log fields to their default value of "Undefined".
     Should only be used for unit testing
     """
-    global _xray_trace_id, _trace_id, _parent_span_id, _span_id, _session_id, _organisation_id, _organisation_name, \
-        _user_id, _customer_id, _service_name, _operation_name, _api_version
+    global _xray_trace_id, _trace_id, _parent_span_id, _span_id, _session_id, \
+        _organisation_id, _organisation_name, _user_id, _customer_id, _service_name, \
+        _operation_name, _api_version
 
     _xray_trace_id = "Undefined"
     _trace_id = "Undefined"
@@ -106,4 +111,3 @@ def reset_standard_log_fields():
     _service_name = "Undefined"
     _operation_name = "Undefined"
     _api_version = "Undefined"
-
