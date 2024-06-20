@@ -18,10 +18,10 @@ _operation_name = "Undefined"
 _api_version = "Undefined"
 # pylint: enable=invalid-name
 
-def set_standard_log_fields(xray_trace_id=None, trace_id=None, parent_span_id=None, 
-                            span_id=None, session_id=None, organisation_id=None, 
-                            organisation_name=None, user_id=None, customer_id=None,
-                            service_name=None, operation_name=None, api_version=None):
+def set_standard_log_fields(xray_trace_id="Undefined", trace_id="Undefined", parent_span_id="Undefined", 
+                            span_id="Undefined", session_id="Undefined", organisation_id="Undefined", 
+                            organisation_name="Undefined", user_id="Undefined", customer_id="Undefined",
+                            service_name="Undefined", operation_name="Undefined", api_version="Undefined"):
     """
     Sets the standard log fields with the provided values.
 
@@ -76,18 +76,18 @@ def prepare_log_string():
     Returns:
         str: The log string.
     """
-    log_string = f"XRayTraceId: {_xray_trace_id}," + \
-                 f"TraceId: {_trace_id}," + \
-                 f"ParentSpanId: {_parent_span_id}," + \
-                 f"SpanId: {_span_id}," + \
-                 f"SessionId: {_session_id}," + \
-                 f"OrganisationId: {_organisation_id}," + \
-                 f"OrganisationName: {_organisation_name}," + \
-                 f"UserId: {_user_id}," + \
-                 f"CustomerId: {_customer_id}," + \
-                 f"ServiceName: {_service_name}," + \
-                 f"OperationName: {_operation_name}," + \
-                 f"APIVersion: {_api_version}"
+    log_string = f"XRayTraceId: {str(_xray_trace_id)}," + \
+                 f"TraceId: {str(_trace_id)}," + \
+                 f"ParentSpanId: {str(_parent_span_id)}," + \
+                 f"SpanId: {str(_span_id)}," + \
+                 f"SessionId: {str(_session_id)}," + \
+                 f"OrganisationId: {str(_organisation_id)}," + \
+                 f"OrganisationName: {str(_organisation_name)}," + \
+                 f"UserId: {str(_user_id)}," + \
+                 f"CustomerId: {str(_customer_id)}," + \
+                 f"ServiceName: {str(_service_name)}," + \
+                 f"OperationName: {str(_operation_name)}," + \
+                 f"APIVersion: {str(_api_version)}"
     return log_string
 
 
