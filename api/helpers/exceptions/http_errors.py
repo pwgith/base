@@ -1,4 +1,4 @@
-import lambda_base_error
+from helpers.exceptions.lambda_base_error import LambdaBaseError
 
 class HTTPError(LambdaBaseError):
     pass
