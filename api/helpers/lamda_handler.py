@@ -1,5 +1,6 @@
 import jsonschema
-import api.helpers.exceptions.lambda_base_error as lambda_base_error
+from helpers.exceptions.server_errors import ResponseError, CodeAssumptionError
+from helpers.exceptions.http_errors import BadRequestError
 import logging
 
 class LambdaHandler:
@@ -10,10 +11,10 @@ class LambdaHandler:
         self.message = None
         self.response = None
         if request_model is None:
-            raise lambda_base_error.CodeAssumptionError('request_model is not defined')
+            raise CodeAssumptionError('request_model is not defined')
         self.request_model = request_model
         if response_model is None:
-            raise lambda_base_error.CodeAssumptionError('response_model model is not defined')
+            raise CodeAssumptionError('response_model model is not defined')
         self.response_model = response_model
         
 
@@ -84,25 +85,25 @@ class LambdaHandler:
     
     def check_request(self):
         if self.event is None:
-            raise lambda_base_error.CodeAssumptionError('Event is not defined')
+            raise CodeAssumptionError('Event is not defined')
         # Perform validation against the Swagger schema
         # You can use a library like jsonschema to validate the message against the model
         # Here's an example using jsonschema:
         try:
             jsonschema.validate(self.request_model, self.event)
         except jsonschema.ValidationError as e:
-            raise lambda_base_error.BadRequestError(f'Request does not conform to the model: {e}')
+            raise BadRequestError(f'Request does not conform to the model: {e}')
 
     def check_response(self):
         if self.event is None:
-            raise lambda_base_error.CodeAssumptionError('Event is not defined')
+            raise CodeAssumptionError('Event is not defined')
         # Perform validation against the Swagger schema
         # You can use a library like jsonschema to validate the message against the model
         # Here's an example using jsonschema:
         try:
             jsonschema.validate(self.response_model, self.response)
         except jsonschema.ValidationError as e:
-            raise lambda_base_error.ResponseError(f'Response does not conform to the model: {e}')
+            raise ResponseError(f'Response does not conform to the model: {e}')
 
     def process_request(self, event, context):
         result = False
