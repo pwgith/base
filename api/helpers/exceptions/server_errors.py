@@ -16,7 +16,3 @@ class ResponseError(ServerError):
         super().__init__(message)
         self.return_text = 'Response does not conform to the model'
 
-class HealthCheckError(ServerError):
-    def __init__(self, message):
-        super().__init__(message)
-        self.return_text = 'Health check failed'
