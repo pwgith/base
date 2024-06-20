@@ -1,0 +1,28 @@
+{
+    "description": "Successful Response",
+    "schema": {
+        "$ref": "#/definitions/SuccessResponse"
+    },
+    "definitions": {
+        "HTTPResponse": {
+            "type": "object",
+            "properties": {
+                "response": {
+                    "type": "object",
+                    "properties": {
+                        "code": {
+                            "type": "string",
+                            "description": "HTTP Code"
+                        },
+                        "message": {
+                            "type": "string",
+                            "description": "The Message"
+                        }
+                    },
+                    "required": ["code", "message"]
+                }
+            },
+            "required": ["response"]
+        }
+    }
+}

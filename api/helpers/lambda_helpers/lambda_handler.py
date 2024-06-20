@@ -1,22 +1,36 @@
 import jsonschema
-from helpers.exceptions.server_errors import ResponseError, CodeAssumptionError
-from helpers.exceptions.http_errors import BadRequestError
+import json
+from helpers.exceptions.server_errors import ServerError, ResponseError, CodeAssumptionError, HealthCheckError
+from helpers.exceptions.http_errors import HTTPError, BadRequestError
 import logging
+import os
 
 class LambdaHandler:
-    def __init__(self, request_model, response_model):
-        self.event = None
-        self.context = None
-        self.headers = None
-        self.message = None
+    def load_model_from_file(self, file_name):
+        with open(file_name, encoding='utf-8') as json_file:
+            return json.load(json_file)
+
+    def __init__(self, event, context, request_model):
         self.response = None
+        self.response_model = None
+
+        if event is None:
+            raise CodeAssumptionError('event is not defined')
+        self.event = event
+
+        if context is None:
+            raise CodeAssumptionError('context is not defined')
+        self.context = context
+
         if request_model is None:
             raise CodeAssumptionError('request_model is not defined')
         self.request_model = request_model
-        if response_model is None:
-            raise CodeAssumptionError('response_model model is not defined')
-        self.response_model = response_model
-        
+
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        models_dir = os.path.join(current_dir, 'models')
+        self.error_response_model = self.load_model_from_file(os.path.join(models_dir, 'error_response_model.json'))
+        self.basic_success_response_model = self.load_model_from_file(os.path.join(models_dir, 'basic_success_response_model.json'))
+    
 
     def get_param(self, key):
         return self.event.get(key)
@@ -63,7 +77,9 @@ class LambdaHandler:
     def get_logger(self):
         return logging.getLogger()
 
-    def set_successful_response(self, status_code, body):
+    def set_generic_successful_response(self, status_code, body):
+        self.response_model = self.basic_success_response_model
+
         self.response = {
             'statusCode': status_code,
             'body': json.dumps(body),
@@ -73,8 +89,22 @@ class LambdaHandler:
             }
         }
 
-    def build_error_response(self, status_code, error_message):
-        return {
+    def set_successful_response(self, status_code, body, response_model):
+        if (response_model is None):
+            raise CodeAssumptionError('response_model is not defined')
+        self.response_model = response_model
+
+        self.response = {
+            'statusCode': status_code,
+            'body': json.dumps(body),
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            }
+        }
+
+    def set_error_response(self, status_code, error_message):
+        self.response = {
             'statusCode': status_code,
             'body': json.dumps({'error': error_message}),
             'headers': {
@@ -82,6 +112,7 @@ class LambdaHandler:
                 'Access-Control-Allow-Origin': '*'
             }
         }
+        self.response_model = self.error_response_model
     
     def check_request(self):
         if self.event is None:
@@ -95,8 +126,10 @@ class LambdaHandler:
             raise BadRequestError(f'Request does not conform to the model: {e}')
 
     def check_response(self):
-        if self.event is None:
-            raise CodeAssumptionError('Event is not defined')
+        if self.response_model is None:
+            raise CodeAssumptionError('Response model is not defined')
+        if self.response is None:
+            raise CodeAssumptionError('Response is not defined')
         # Perform validation against the Swagger schema
         # You can use a library like jsonschema to validate the message against the model
         # Here's an example using jsonschema:
@@ -104,24 +137,31 @@ class LambdaHandler:
             jsonschema.validate(self.response_model, self.response)
         except jsonschema.ValidationError as e:
             raise ResponseError(f'Response does not conform to the model: {e}')
+        
+    def get_response(self):
+        return self.response
 
-    def process_request(self, event, context):
+    def process_request(self):
         result = False
         try:
-            self.event = event
-            self.context = context
-            self.message = json.loads(self.get_body())
-            self.headers = self.event.get('headers')
             self.check_request()
-            result = self.process_request_implementation
+            self.process_request_implementation()
             self.check_response()
-        except lambda_base_error.LambdaError as e:
-            result = False
-            self.get_logger().error(f'Lambda error: {e}')
-            self.response = self.build_error_response(e.getHTTPReturnCode(), e.getHTTPReturnText())
+            result = True
+        except HTTPError as e:
+            self.get_logger().info(f'Lambda HTTP error: {e}')
+            self.set_error_response(e.getHTTPReturnCode(), e.getHTTPReturnText())
+        except ServerError as e:
+            self.get_logger().error(f'Lambda server error: {e}')
+            self.set_error_response(e.getHTTPReturnCode(), e.getHTTPReturnText())
+        except Exception as e:
+            self.get_logger().error(f'Unexpected error: {e}')
+            self.set_error_response(500, 'Internal Server Error')
         return(result)
         
     def process_request_implementation(self):
         # Must call the set_succesul_response method on success
         # and raise a LambdaError on failure
-        pass
+        self.set_generic_successful_response(200, {'message': 'process_request_implementation has not been implemented.'})
+
+
