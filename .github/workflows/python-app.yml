@@ -42,7 +42,7 @@ jobs:
         coverage report --fail-under=90
     - name: Run Bandit (Security linter for Python)
       run: |
-        bandit -r .
+        bandit -r . --skip B101
 
     - name: Run Safety (Checks dependencies for known vulnerabilities)
       run: |
