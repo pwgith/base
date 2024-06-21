@@ -40,8 +40,10 @@ jobs:
     - name: Check coverage
       run: |
         coverage report --fail-under=90
-    # Run code security scan
-    - name: CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
-      with:
-        languages: python
+    - name: Run Bandit (Security linter for Python)
+      run: |
+        bandit -r .
+
+    - name: Run Safety (Checks dependencies for known vulnerabilities)
+      run: |
+        safety check
