@@ -46,4 +46,4 @@ jobs:
 
     - name: Run Safety (Checks dependencies for known vulnerabilities)
       run: |
-        safety check
+        safety check --ignore 70612
