@@ -6,12 +6,4 @@ resource "aws_dynamodb_table" "example_table" {
     name = "id"
     type = "N"
   }
-  attribute {
-    name = "name"
-    type = "S"
-  }
-  attribute {
-    name = "age"
-    type = "N"
-  }
 }
