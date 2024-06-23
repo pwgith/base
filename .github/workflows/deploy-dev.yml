@@ -1,6 +1,6 @@
 name: 'Deploy Dev'
 on:
-  - pull_request
+  workflow_dispatch:
 
 env:
   tf_version: '1.5.7'
