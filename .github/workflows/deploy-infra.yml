@@ -10,6 +10,7 @@ env:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    environment: 'infra'
     steps:
       - name: 'Checkout'
         uses: actions/checkout@main
@@ -24,6 +25,7 @@ jobs:
 
   plan:
     runs-on: ubuntu-latest
+    environment: 'infra'
     needs: [ checks ]
     steps:
       - name: 'Checkout'
@@ -40,6 +42,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    environment: 'infra'
     needs: [ plan ]
     environment: 'prod'
     if: github.ref == 'refs/heads/main'
