@@ -1,3 +1,7 @@
+provider "aws" {
+  region = var.aws_region
+}
+
 resource "aws_cognito_user_pool" "pool" {
   count = var.enabled ? 1 : 0
 

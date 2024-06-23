@@ -1,3 +1,8 @@
+variable "aws_region" {
+  description = "The AWS region to deploy into"
+  type        = string
+}
+
 variable "create" {
   description = "Controls if API Gateway resources should be created"
   type        = bool

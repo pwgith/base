@@ -1,4 +1,8 @@
 # API Gateway
+provider "aws" {
+  region = var.aws_region
+}
+
 resource "aws_apigatewayv2_api" "this" {
   count = var.create && var.create_api_gateway ? 1 : 0
 

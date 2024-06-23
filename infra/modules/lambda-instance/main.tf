@@ -1,3 +1,7 @@
+provider "aws" {
+  region = var.aws_region
+}
+
 resource "aws_lambda_function" "my_lambda" {
     function_name = var.lambda_name
     runtime = "python3.8"  # Replace with your desired runtime

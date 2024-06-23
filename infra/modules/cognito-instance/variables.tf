@@ -1,6 +1,11 @@
 #
 # aws_cognito_user_pool
 #
+variable "aws_region" {
+  description = "The AWS region to deploy into"
+  type        = string
+}
+
 variable "enabled" {
   description = "Change to false to avoid deploying any resources"
   type        = bool
