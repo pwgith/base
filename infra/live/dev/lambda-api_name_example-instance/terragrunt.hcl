@@ -11,6 +11,6 @@ terraform {
 }
 
 inputs = {
-  lambda_name = "${local.env_name}-api_name_example"
+  lambda_name    = "${local.env_name}-api_name_example"
   lambda_handler = "handler.handler"
 }
