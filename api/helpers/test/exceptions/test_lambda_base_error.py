@@ -1,5 +1,5 @@
 import pytest
-from helpers.exceptions.lambda_base_error import LambdaBaseError
+from api.helpers.exceptions.lambda_base_error import LambdaBaseError
 
 def test_lambda_base_error():
     error = LambdaBaseError("Base error")

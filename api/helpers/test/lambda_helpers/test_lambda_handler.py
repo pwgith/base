@@ -1,8 +1,8 @@
 import pytest
 import json
-from helpers.lambda_helpers.lambda_handler import LambdaHandler
-from helpers.exceptions.server_errors import CodeAssumptionError
-from helpers.exceptions.http_errors import BadRequestError
+from api.helpers.lambda_helpers.lambda_handler import LambdaHandler
+from api.helpers.exceptions.server_errors import CodeAssumptionError
+from api.helpers.exceptions.http_errors import BadRequestError
 
 basic_request_model = {
     "type": "object",

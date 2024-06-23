@@ -1,6 +1,6 @@
 import pytest
-from helpers.exceptions.http_errors import HTTPError, BadRequestError
-from helpers.exceptions.lambda_base_error import LambdaBaseError
+from api.helpers.exceptions.http_errors import HTTPError, BadRequestError
+from api.helpers.exceptions.lambda_base_error import LambdaBaseError
 
 def test_bade_request_error():
     error = BadRequestError("Bad request error")

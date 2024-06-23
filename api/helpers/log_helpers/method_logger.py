@@ -2,7 +2,7 @@
 This module provides a context manager for logging method entry and exit.
 """
 from datetime import datetime
-from helpers.log_helpers.log_helper import prepare_log_string
+from api.helpers.log_helpers.log_helper import prepare_log_string
 
 class MethodLogger:
     """

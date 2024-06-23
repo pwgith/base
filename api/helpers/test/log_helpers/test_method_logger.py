@@ -1,4 +1,4 @@
-from helpers.log_helpers.method_logger import MethodLogger
+from api.helpers.log_helpers.method_logger import MethodLogger
 import logging
 logger = logging.getLogger(__name__)
 

@@ -1,6 +1,6 @@
 import pytest
-from helpers.exceptions.server_errors import CodeAssumptionError, ResponseError, ServerError
-from helpers.exceptions.lambda_base_error import LambdaBaseError
+from api.helpers.exceptions.server_errors import CodeAssumptionError, ResponseError, ServerError
+from api.helpers.exceptions.lambda_base_error import LambdaBaseError
 
 def test_code_assumption_error():
     error = CodeAssumptionError("Code assumption error")

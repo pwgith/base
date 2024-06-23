@@ -1,4 +1,4 @@
-from  helpers.exceptions.lambda_base_error import LambdaBaseError
+from  api.helpers.exceptions.lambda_base_error import LambdaBaseError
 
 class ServerError(LambdaBaseError):
     def __init__(self, message):
