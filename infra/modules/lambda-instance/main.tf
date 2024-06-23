@@ -11,7 +11,7 @@ resource "aws_lambda_function" "my_lambda" {
 
     # Replace with your desired Lambda function code
     filename = var.lambda_zip_file
-    source_code_hash = filebase64sha256("lambda_function.zip")
+    source_code_hash = filebase64sha256(var.lambda_zip_file)
 }
 
 resource "aws_iam_role" "lambda_role" {
