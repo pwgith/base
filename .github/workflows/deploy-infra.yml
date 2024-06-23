@@ -15,12 +15,14 @@ jobs:
       - name: 'Env Vars'
         env: 
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: env | sort
 
       - name: 'AWS Key'
         env: 
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        run: echo $AWS_ACCESS_KEY_ID
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: echo $AWS_ACCESS_KEY_ID && echo $AWS_SECRET_ACCESS_KEY
                 
       - name: 'Checkout'
         uses: actions/checkout@main
@@ -43,6 +45,9 @@ jobs:
       - name: 'Zip'
         run: zip -r infra/live/dev/lambda-api_name_example-instance/lambda-api_name_example-instance.zip api/helpers api/api_name_example
       - name: Plan
+        env: 
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         uses: gruntwork-io/terragrunt-action@v2
         with:
           tf_version: ${{ env.tf_version }}
@@ -61,6 +66,9 @@ jobs:
 
       - name: Deploy
         uses: gruntwork-io/terragrunt-action@v2
+        env: 
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         with:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
