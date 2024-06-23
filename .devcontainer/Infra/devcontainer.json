@@ -1,4 +1,11 @@
 {
   "image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-20.04",
-  "postCreateCommand": "./infra_setup.sh"
+  "postCreateCommand": "./infra_setup.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.copilot"
+      ]
+    }
+  }
 }
