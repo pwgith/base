@@ -12,6 +12,6 @@ terraform {
 }
 
 inputs = {
-  table_name = "${local.env_name}-trial-ddb"
+  table_name     = "${local.env_name}-trial-ddb"
   aws_region     = local.aws_region
 }

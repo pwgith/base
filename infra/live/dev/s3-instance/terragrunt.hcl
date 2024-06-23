@@ -12,6 +12,6 @@ terraform {
 }
 
 inputs = {
-  bucket_name = "${local.env_name}-grunty-s3"
+  bucket_name    = "${local.env_name}-grunty-s3"
   aws_region     = local.aws_region
 }

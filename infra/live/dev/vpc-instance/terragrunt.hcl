@@ -13,6 +13,6 @@ terraform {
 
 
 inputs = {
-  vpc_name = "${local.env_name}-trial-vpc"
+  vpc_name       = "${local.env_name}-trial-vpc"
   aws_region     = local.aws_region
 }
