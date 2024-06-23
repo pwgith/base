@@ -5,7 +5,8 @@
     "vscode": {
       "extensions": [
         "GitHub.copilot",
-        "4ops.terraform"
+        "4ops.terraform",
+        "github.vscode-github-actions"
       ]
     }
   }

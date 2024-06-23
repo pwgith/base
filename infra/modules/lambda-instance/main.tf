@@ -10,7 +10,7 @@ resource "aws_lambda_function" "my_lambda" {
     role = aws_iam_role.lambda_role.arn  # Replace with the ARN of your IAM role
 
     # Replace with your desired Lambda function code
-    filename = "lambda_function.zip"
+    filename = var.lambda_zip_file
     source_code_hash = filebase64sha256("lambda_function.zip")
 }
 

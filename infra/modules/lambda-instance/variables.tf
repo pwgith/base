@@ -12,3 +12,8 @@ variable "lambda_handler" {
   description = "The name to use for the lambda handler (module.function)"
   type        = string
 }
+
+variable "lambda_zip_file" {
+  description = "The name of the zip file to be sent to AWS"
+  type        = string
+}

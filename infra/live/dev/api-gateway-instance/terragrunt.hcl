@@ -4,6 +4,7 @@ locals {
 
   # Extract out common variables for reuse
   env_name = local.environment_vars.locals.environment
+  aws_region = local.environment_vars.locals.aws_region
 }
 terraform {
   source = "../../../modules/cognito-instance"
@@ -11,4 +12,5 @@ terraform {
 
 inputs = {
   user_pool_name = "${local.env_name}-agw"
+  aws_region     = local.aws_region
 }
