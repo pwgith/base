@@ -13,8 +13,11 @@ jobs:
     environment: 'infra'
     steps:
       - name: 'Env Vars'
+        run: env
+
+      - name: 'AWS Key'
         run: echo $AWS_ACCESS_KEY_ID
-        
+                
       - name: 'Checkout'
         uses: actions/checkout@main
 
