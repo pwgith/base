@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: 'infra'
     steps:
+      - name: 'Env Vars'
+        run: echo $AWS_ACCESS_KEY_ID
+        
       - name: 'Checkout'
         uses: actions/checkout@main
 
