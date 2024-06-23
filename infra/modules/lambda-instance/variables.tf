@@ -3,7 +3,7 @@ variable "lambda_name" {
   type        = string
 }
 
-variable "handler_name" {
+variable "lambda_handler" {
   description = "The name to use for the lambda handler (module.function)"
   type        = string
 }
