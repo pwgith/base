@@ -13,7 +13,12 @@ variable "lambda_handler" {
   type        = string
 }
 
-variable "lambda_zip_file" {
+variable "lambda_zip_path" {
+  description = "The partial path and name of the zip file to be sent to AWS"
+  type        = string
+}
+
+variable "lambda_zip_name" {
   description = "The name of the zip file to be sent to AWS"
   type        = string
 }
