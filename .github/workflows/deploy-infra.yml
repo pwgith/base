@@ -32,10 +32,10 @@ jobs:
         uses: actions/checkout@main
       - name: 'Install Helper Packages'
         run: |
-          cd pip install -r api/api_name_example/requirements.txt -t api/packages 
+          pip install -r api/api_name_example/requirements.txt -t api/packages 
       - name: 'Install API Packages'
         run: |
-          cd pip install -r api/helpers/requirements.txt -t api/packages 
+          pip install -r api/helpers/requirements.txt -t api/packages 
       - name: 'Zip'
         run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip api/helpers api/api_name_example -x "*/test/*" "*.sh"
       - name: Plan
@@ -57,9 +57,12 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@main
-      - name: 'Install Packages'
+      - name: 'Install Helper Packages'
         run: |
-          cd api/helpers && pip install -r requirements.txt -t . 
+          pip install -r api/api_name_example/requirements.txt -t api/packages 
+      - name: 'Install API Packages'
+        run: |
+          pip install -r api/helpers/requirements.txt -t api/packages 
       - name: 'Zip'
         run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip api/helpers api/api_name_example -x "*/test/*"
 
