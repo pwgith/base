@@ -16,5 +16,5 @@ variable "vpc_name" {
 variable "vpc_availability_zone" {
   description = "The name to use for the VPC availability zone (eg ap-southeast-2)"
   type        = string
-  default     = "ap-southeast-2"
+  default     = "ap-southeast-2a"
 }
