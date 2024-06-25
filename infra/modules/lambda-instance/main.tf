@@ -11,12 +11,18 @@ resource "aws_lambda_function" "my_lambda" {
     function_name = var.lambda_name
     runtime = "python3.8"  # Replace with your desired runtime
     handler = var.lambda_handler  
-
     role = aws_iam_role.lambda_role.arn  # Replace with the ARN of your IAM role
+
 
     # Replace with your desired Lambda function code
     filename = var.lambda_zip_name
     source_code_hash = filebase64sha256(var.lambda_zip_name)
+
+    environment {
+        variables = {
+            PYTHONPATH = "/var/task/api/packages:/var/task/api:/var/task"
+        }
+    }
 }
 
 resource "aws_iam_role" "lambda_role" {
