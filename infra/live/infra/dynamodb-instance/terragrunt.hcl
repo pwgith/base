@@ -1,3 +1,7 @@
+include {
+  path = find_in_parent_folders()
+}
+
 locals {
   # Automatically load environment-level variables
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
@@ -7,6 +11,7 @@ locals {
   aws_region      = local.environment_vars.locals.aws_region
   assume_role_arn = local.environment_vars.locals.assume_role_arn
 }
+
 
 terraform {
   source = "../../../modules/dynamodb-instance"

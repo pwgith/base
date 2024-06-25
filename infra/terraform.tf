@@ -6,10 +6,4 @@ terraform {
     }
   }
 
-  backend "s3" {
-    bucket = "tf-remote-state-base"
-    key = "state"
-    region = "ap-southeast-2"
-    dynamodb_table = "tf-remote-state-base"
-  }
 }
