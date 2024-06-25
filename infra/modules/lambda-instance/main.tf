@@ -1,6 +1,11 @@
 provider "aws" {
   region = var.aws_region
+  assume_role {
+    role_arn = var.assume_role_arn
+  }
+
 }
+
 
 resource "aws_lambda_function" "my_lambda" {
     function_name = var.lambda_name

@@ -3,6 +3,11 @@ variable "aws_region" {
   type        = string
 }
 
+variable "assume_role_arn" {
+  description = "The role to use to deploy with"
+  type        = string
+}
+
 variable "bucket_name" {
   description = "The name to use for the instance"
   type        = string

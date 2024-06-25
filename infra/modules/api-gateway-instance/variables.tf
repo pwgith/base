@@ -3,6 +3,11 @@ variable "aws_region" {
   type        = string
 }
 
+variable "assume_role_arn" {
+  description = "The role to use to deploy with"
+  type        = string
+}
+
 variable "create" {
   description = "Controls if API Gateway resources should be created"
   type        = bool

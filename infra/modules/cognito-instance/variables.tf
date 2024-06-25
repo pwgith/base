@@ -6,6 +6,11 @@ variable "aws_region" {
   type        = string
 }
 
+variable "assume_role_arn" {
+  description = "The role to use to deploy with"
+  type        = string
+}
+
 variable "enabled" {
   description = "Change to false to avoid deploying any resources"
   type        = bool
