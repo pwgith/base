@@ -32,12 +32,12 @@ jobs:
         uses: actions/checkout@main
       - name: 'Install Helper Packages'
         run: |
-          pip install -r api/helpers/requirements.txt -t api/packages 
+          pip install -r api/helpers/requirements.txt -t . 
       - name: 'Install API Packages'
         run: |
-          pip install -r api/api_name_example/requirements.txt -t api/packages 
+          pip install -r api/api_name_example/requirements.txt .
       - name: 'Zip'
-        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip api/packages api/helpers api/api_name_example -x "*/test/*"
+        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*/test/*"
       - name: Plan
         env: 
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -59,12 +59,12 @@ jobs:
         uses: actions/checkout@main
       - name: 'Install Helper Packages'
         run: |
-          pip install -r api/helpers/requirements.txt -t api/packages 
+          pip install -r api/helpers/requirements.txt -t . 
       - name: 'Install API Packages'
         run: |
-          pip install -r api/api_name_example/requirements.txt -t api/packages 
+          pip install -r api/api_name_example/requirements.txt .
       - name: 'Zip'
-        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip api/packages api/helpers api/api_name_example -x "*/test/*"
+        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*/test/*"
 
       - name: Deploy
         uses: gruntwork-io/terragrunt-action@v2
