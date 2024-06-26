@@ -2,6 +2,10 @@ include {
   path = find_in_parent_folders()
 }
 
+dependencies {
+  paths = ["../lambda-api_name_example-instance"]
+}
+
 locals {
   # Automatically load environment-level variables
   environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
