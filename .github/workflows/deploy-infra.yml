@@ -28,12 +28,13 @@ jobs:
     environment: 'infra'
     needs: [ checks ]
     steps:
-      - name: 'Checkout'
-        uses: actions/checkout@main
+      - name: 'Checkout Helpers'
+          uses: actions/checkout@main
         with:
           path: 'api/helpers'
           ref: ${{ github.sha }}
-        uses: actions/checkout@main
+      - name: 'Checkout API'
+          uses: actions/checkout@main
         with:
           path: 'api/api_name_example'
           ref: ${{ github.sha }}
@@ -64,12 +65,13 @@ jobs:
     needs: [ plan ]
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: 'Checkout'
+      - name: 'Checkout Helpers'
         uses: actions/checkout@main
         with:
           path: 'api/helpers'
           ref: ${{ github.sha }}
-        uses: actions/checkout@main
+m     - name: 'Checkout API'
+          uses: actions/checkout@main
         with:
           path: 'api/api_name_example'
           ref: ${{ github.sha }}
