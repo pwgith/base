@@ -30,6 +30,13 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@main
+        with:
+          path: 'api/helpers'
+          ref: ${{ github.sha }}
+        uses: actions/checkout@main
+        with:
+          path: 'api/api_name_example'
+          ref: ${{ github.sha }}
 
       - name: 'Install Helper Packages'
         run: |
@@ -59,6 +66,14 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@main
+        with:
+          path: 'api/helpers'
+          ref: ${{ github.sha }}
+        uses: actions/checkout@main
+        with:
+          path: 'api/api_name_example'
+          ref: ${{ github.sha }}
+
       - name: 'Install Helper Packages'
         run: |
           pip install -r api/helpers/requirements.txt -t . 
