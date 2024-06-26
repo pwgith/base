@@ -28,21 +28,11 @@ jobs:
     environment: 'infra'
     needs: [ checks ]
     steps:
-      - name: 'Checkout Infra'
-        uses: actions/checkout@main
-        with:
-          path: 'infra'
-          ref: ${{ github.sha }}
-      - name: 'Checkout Helpers'
-        uses: actions/checkout@main
-        with:
-          path: 'api/helpers'
-          ref: ${{ github.sha }}
-      - name: 'Checkout API'
-        uses: actions/checkout@main
-        with:
-          path: 'api/api_name_example'
-          ref: ${{ github.sha }}
+      - name: Set up sparse checkout
+        run: |
+          git sparse-checkout init --cone
+          git sparse-checkout set infra api/helpers api/api_name_example 
+          git checkout
       - name: 'Print Directory Tree'
         run: tree
 
@@ -53,7 +43,7 @@ jobs:
         run: |
           pip install -r api/api_name_example/requirements.txt -t .
       - name: 'Zip'
-        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*test/*" "/aws/*" ".git/*" ".dev_container/*" ".github/*"
+        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . 
 
       - name: Plan
         env: 
