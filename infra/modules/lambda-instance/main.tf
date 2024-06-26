@@ -20,7 +20,7 @@ resource "aws_lambda_function" "my_lambda" {
 
     environment {
         variables = {
-            PYTHONPATH = "/var/task/api/packages:/var/task/api:/var/task"
+            PYTHONPATH = "/var/task/api:/var/task"
             LOG_LEVEL  = "WARNING"
         }
     }
