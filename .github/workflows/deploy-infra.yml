@@ -59,23 +59,16 @@ jobs:
     needs: [ plan ]
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: 'Checkout Infra'
-        uses: actions/checkout@main
+      - uses: actions/checkout@v3
         with:
-          path: 'infra'
-          ref: ${{ github.sha }}
-      - name: 'Checkout Helpers'
-        uses: actions/checkout@main
-        with:
-          path: 'api/helpers'
-          ref: ${{ github.sha }}
-      - name: 'Checkout API'
-        uses: actions/checkout@main
-        with:
-          path: 'api/api_name_example'
-          ref: ${{ github.sha }}
+          sparse-checkout: |
+            infra
+            api/helpers
+            api/api_name_example
+
       - name: 'Print Directory Tree'
         run: tree
+
 
       - name: 'Install Helper Packages'
         run: |
