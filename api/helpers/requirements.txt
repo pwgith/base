@@ -1,2 +1,1 @@
-jsonschema
-rpds
+jsonschema = ">=4.17.3"
