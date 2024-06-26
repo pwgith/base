@@ -11,12 +11,17 @@ locals {
   aws_region      = local.environment_vars.locals.aws_region
   assume_role_arn = local.environment_vars.locals.assume_role_arn
 }
+
+dependency "lambda" {
+  config_path = "../lambda-api_name_example-instance"
+}
+
 terraform {
-  source = "../../../modules/cognito-instance"
+  source = "../../../modules/api-gateway-instance"
 }
 
 inputs = {
-  user_pool_name  = "${local.env_name}-agw"
   aws_region      = local.aws_region
   assume_role_arn = local.assume_role_arn
+  lambda_arn = dependency.lambda.outputs.lambda_arn
 }
