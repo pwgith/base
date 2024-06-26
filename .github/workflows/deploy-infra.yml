@@ -29,12 +29,12 @@ jobs:
     needs: [ checks ]
     steps:
       - name: 'Checkout Helpers'
-          uses: actions/checkout@main
+        uses: actions/checkout@main
         with:
           path: 'api/helpers'
           ref: ${{ github.sha }}
       - name: 'Checkout API'
-          uses: actions/checkout@main
+        uses: actions/checkout@main
         with:
           path: 'api/api_name_example'
           ref: ${{ github.sha }}
@@ -70,8 +70,8 @@ jobs:
         with:
           path: 'api/helpers'
           ref: ${{ github.sha }}
-m     - name: 'Checkout API'
-          uses: actions/checkout@main
+      - name: 'Checkout API'
+        uses: actions/checkout@main
         with:
           path: 'api/api_name_example'
           ref: ${{ github.sha }}
