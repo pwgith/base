@@ -9,7 +9,7 @@ provider "aws" {
 
 resource "aws_lambda_function" "my_lambda" {
     function_name = var.lambda_name
-    runtime = "python3.8"  # Replace with your desired runtime
+    runtime = "python3.11"  # Replace with your desired runtime
     handler = var.lambda_handler  
     role = aws_iam_role.lambda_role.arn  # Replace with the ARN of your IAM role
 
