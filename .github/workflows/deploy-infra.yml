@@ -85,6 +85,8 @@ jobs:
         with:
           path: 'api/api_name_example'
           ref: ${{ github.sha }}
+      - name: 'Print Directory Tree'
+        run: tree
 
       - name: 'Install Helper Packages'
         run: |
