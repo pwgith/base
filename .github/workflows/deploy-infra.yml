@@ -38,7 +38,7 @@ jobs:
         run: |
           pip install -r api/api_name_example/requirements.txt -t .
       - name: 'Zip'
-        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*/test/*"
+        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*test/*" "/aws/*" ".git/*" ".dev_container/*"
 
       - name: Plan
         env: 
@@ -66,7 +66,7 @@ jobs:
         run: |
           pip install -r api/api_name_example/requirements.txt -t .
       - name: 'Zip'
-        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*/test/*"
+        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*test/*" "/aws/*" ".git/*" ".dev_container/*"
 
       - name: Deploy
         uses: gruntwork-io/terragrunt-action@v2
