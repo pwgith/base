@@ -38,7 +38,7 @@ jobs:
         run: |
           pip install -r api/api_name_example/requirements.txt -t .
       - name: 'Zip'
-        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*test/*" "/aws/*" ".git/*" ".dev_container/*"
+        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*test/*" "/aws/*" ".git/*" ".dev_container/*" ".github/*"
 
       - name: Plan
         env: 
