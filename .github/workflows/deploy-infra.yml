@@ -28,16 +28,14 @@ jobs:
     environment: 'infra'
     needs: [ checks ]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
 
-      - name: Set up sparse checkout
-        run: |
-          git sparse-checkout init --cone
-          git sparse-checkout set infra api/helpers api/api_name_example 
-          git checkout
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            infra
+            api/helpers
+            api/api_name_example
+
       - name: 'Print Directory Tree'
         run: tree
 
