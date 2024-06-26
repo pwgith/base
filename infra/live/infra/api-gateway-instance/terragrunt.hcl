@@ -23,5 +23,5 @@ terraform {
 inputs = {
   aws_region      = local.aws_region
   assume_role_arn = local.assume_role_arn
-  lambda_arn = dependency.lambda.outputs.lambda_arn
+  lambda_arn      = dependency.lambda.outputs.lambda_arn
 }
