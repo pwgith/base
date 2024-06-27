@@ -63,6 +63,10 @@ resource "aws_api_gateway_integration_response" "example_integration_response_20
   response_templates = {
     "application/json" = ""
   }
+  
+  depends_on = [
+    aws_api_gateway_integration.example_integration
+  ]
 }
 
 # Deploy the API
