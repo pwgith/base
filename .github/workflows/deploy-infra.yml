@@ -27,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: 'infra'
     needs: [ checks ]
+      env:
+      TF_LOG: DEBUG
     steps:
 
       - uses: actions/checkout@v3
