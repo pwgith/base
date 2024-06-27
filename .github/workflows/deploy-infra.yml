@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 'infra'
     needs: [ checks ]
-      env:
+    env:
       TF_LOG: DEBUG
 
     steps:
