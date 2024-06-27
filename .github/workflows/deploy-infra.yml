@@ -28,7 +28,7 @@ jobs:
     environment: 'infra'
     needs: [ checks ]
     env:
-      TF_LOG: DEBUG
+      TF_LOG: WARN
 
     steps:
 
@@ -63,7 +63,7 @@ jobs:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.working_dir }}
-          tg_command: 'run-all plan'
+          tg_command: 'run-all plan --terragrunt-debug'
 
   deploy:
     runs-on: ubuntu-latest
