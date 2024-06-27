@@ -34,7 +34,7 @@ resource "aws_api_gateway_integration" "example_integration" {
   http_method             = aws_api_gateway_method.example_method.http_method
   integration_http_method = "GET"
   type                    = "AWS_PROXY"
-  uri                     = var.lambda_arn
+  uri                     = var.invoke_arn
 
   request_templates = {
     "application/json" = "{\"statusCode\": 200}"

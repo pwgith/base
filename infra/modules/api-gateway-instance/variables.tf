@@ -12,3 +12,8 @@ variable "lambda_arn" {
   description = "The arn of the lambda to integrate to"
   type        = string
 }
+
+variable "invoke_arn" {
+  description = "The arn of the lambda invocation to integrate to"
+  type        = string
+}

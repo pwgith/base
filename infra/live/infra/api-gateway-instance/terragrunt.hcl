@@ -19,7 +19,8 @@ locals {
 dependency "lambda" {
   config_path = "../lambda-api_name_example-instance"
   mock_outputs = {
-    lambda_arn = "sample-arn"
+    lambda_arn = "sample-arna"
+    invoke_arn = "sample-arnb"
   }
 }
 
@@ -31,4 +32,5 @@ inputs = {
   aws_region      = local.aws_region
   assume_role_arn = local.assume_role_arn
   lambda_arn      = dependency.lambda.outputs.lambda_arn
+  invoke_arn      = dependency.lambda.outputs.invoke_arn
 }
