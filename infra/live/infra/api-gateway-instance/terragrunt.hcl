@@ -19,8 +19,8 @@ locals {
 dependency "lambda" {
   config_path = "../lambda-api_name_example-instance"
   mock_outputs = {
-    lambda_arn = "sample-arn",
-    invoke_arn = "sample-arn"
+    invoke_arn = "sample-arn",
+    lambda_arn = "sample-arn"
   }
 }
 
