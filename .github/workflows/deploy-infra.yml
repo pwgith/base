@@ -66,6 +66,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: 'infra'
     needs: [ plan ]
+    env:
+      TF_LOG: DEBUG
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
@@ -97,4 +99,4 @@ jobs:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.working_dir }}
-          tg_command: 'run-all apply --terragrunt-log-level debug'
+          tg_command: 'run-all apply'
