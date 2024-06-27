@@ -27,7 +27,7 @@ jobs:
   undeploy:
     runs-on: ubuntu-latest
     environment: 'infra'
-    needs: [ plan ]
+    needs: [ checks ]
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
