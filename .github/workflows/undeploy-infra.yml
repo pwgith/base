@@ -1,0 +1,62 @@
+name: 'Deploy Infra'
+on:
+  workflow_dispatch:
+
+env:
+  tf_version: '1.5.7'
+  tg_version: '0.53.2'
+  working_dir: 'infra/live/infra'
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    environment: 'infra'
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@main
+
+      - name: Check terragrunt HCL
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'hclfmt --terragrunt-check --terragrunt-diff'
+
+
+  undeploy:
+    runs-on: ubuntu-latest
+    environment: 'infra'
+    needs: [ plan ]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            infra
+            api/helpers
+            api/api_name_example
+
+      - name: 'Print Directory Tree'
+        run: tree
+
+
+      - name: 'Install Helper Packages'
+        run: |
+          pip install -r api/helpers/requirements.txt -t . 
+      - name: 'Install API Packages'
+        run: |
+          pip install -r api/api_name_example/requirements.txt -t .
+      - name: 'Zip'
+        run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*test/*" "infra/*" "*dist-info/*" ".git/*" "pvector*.so" ".gitignore" "terragrunt*"
+
+      - name: Undeploy
+        uses: gruntwork-io/terragrunt-action@v2
+        env: 
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_dir }}
+          tg_command: 'run-all destroy -auto-approve'
