@@ -7,7 +7,7 @@ dependencies {
 }
 
 dependency "my_lambda" {
-  config_path  = "../lambda-api_name_example-instance"
+  config_path = "../lambda-api_name_example-instance"
   mock_outputs = {
     lambda_invoke_arn = "mock-invoke-arn"
   }
