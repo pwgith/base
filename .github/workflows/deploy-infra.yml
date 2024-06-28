@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
 
 env:
-  tf_version: '1.5.7'
-  tg_version: '0.53.2'
+  tf_version: '1.7'
+  tg_version: '0.58'
   working_dir: 'infra/live/infra'
 
 jobs:
