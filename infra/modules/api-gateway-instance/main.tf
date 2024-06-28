@@ -53,6 +53,7 @@ resource "aws_api_gateway_method_response" "example_response_200" {
   }
 }
 
+
 # Create Integration Response
 resource "aws_api_gateway_integration_response" "example_integration_response_200" {
   rest_api_id = aws_api_gateway_rest_api.example_api.id
@@ -63,7 +64,17 @@ resource "aws_api_gateway_integration_response" "example_integration_response_20
   response_templates = {
     "application/json" = ""
   }
-  
+}
+
+
+# Add Lambda Permission
+resource "aws_lambda_permission" "example_lambda_permission" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = var.lambda_function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = aws_api_gateway_rest_api.example_api.execution_arn
+
 }
 
 # Deploy the API
@@ -72,8 +83,8 @@ resource "aws_api_gateway_deployment" "example_deployment" {
     aws_api_gateway_integration.example_integration,
     aws_api_gateway_method_response.example_response_200,
     aws_api_gateway_integration_response.example_integration_response_200,
+    aws_lambda_permission.example_lambda_permission
   ]
-
   rest_api_id = aws_api_gateway_rest_api.example_api.id
   stage_name  = "dev"
 }

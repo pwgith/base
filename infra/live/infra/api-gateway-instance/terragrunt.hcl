@@ -10,7 +10,8 @@ dependency "my_lambda" {
   config_path                            = "../lambda-api_name_example-instance"
   mock_outputs_merge_strategy_with_state = "shallow"
   mock_outputs = {
-    lambda_invoke_arn = "mock-invoke-arn"
+    lambda_invoke_arn    = "mock-invoke-arn"
+    lambda_function_name = "mock-function-name"
   }
 }
 
@@ -35,6 +36,7 @@ inputs = {
   aws_region                 = local.aws_region
   assume_role_arn            = local.assume_role_arn
   api_integration_invoke_arn = dependency.my_lambda.outputs.lambda_invoke_arn
+  lambda_function_name       = dependency.my_lambda.outputs.lambda_function_name
 }
 
 

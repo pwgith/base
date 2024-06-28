@@ -12,3 +12,8 @@ variable "api_integration_invoke_arn" {
   description = "The arn of the lambda invocation to integrate to"
   type        = string
 }
+
+variable "lambda_function_name" {
+  description = "The name of the lambda function to integrate with"
+  type        = string
+}
