@@ -54,6 +54,17 @@ jobs:
       - name: 'Zip'
         run: zip -r infra/live/infra/lambda-api_name_example-instance/lambda-api_name_example-instance.zip . -x "*test/*" "infra/*" "*dist-info/*" ".git/*" "pvector*.so" ".gitignore" "terragrunt*"
 
+      - name: Terragrunt Verions
+        env: 
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        uses: gruntwork-io/terragrunt-action@v2
+        with:
+          tf_version: ${{ env.tf_version }}
+          tg_version: ${{ env.tg_version }}
+          tg_dir: ${{ env.working_dir }}
+          tg_command: '--version'
+
       - name: Plan
         env: 
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -63,14 +74,14 @@ jobs:
           tf_version: ${{ env.tf_version }}
           tg_version: ${{ env.tg_version }}
           tg_dir: ${{ env.working_dir }}
-          tg_command: 'run-all plan --terragrunt-log-level debug --terragrunt-debug'
+          tg_command: 'run-all plan'
 
   deploy:
     runs-on: ubuntu-latest
     environment: 'infra'
     needs: [ plan ]
     env:
-      TF_LOG: DEBUG
+      TF_LOG: WARN
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
