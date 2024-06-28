@@ -28,7 +28,7 @@ jobs:
     environment: 'infra'
     needs: [ checks ]
     env:
-      TF_LOG: WARN
+      TF_LOG: ERROR
 
     steps:
 
@@ -81,7 +81,7 @@ jobs:
     environment: 'infra'
     needs: [ plan ]
     env:
-      TF_LOG: WARN
+      TF_LOG: ERROR
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3

@@ -8,6 +8,7 @@ dependencies {
 
 dependency "my_lambda" {
   config_path = "../lambda-api_name_example-instance"
+  mock_outputs_merge_strategy_with_state = "shallow"
   mock_outputs = {
     lambda_invoke_arn = "mock-invoke-arn"
   }
