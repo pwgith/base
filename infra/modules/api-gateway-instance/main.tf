@@ -74,8 +74,8 @@ resource "aws_lambda_permission" "example_lambda_permission" {
   function_name = var.lambda_function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = aws_api_gateway_rest_api.example_api.execution_arn
-
 }
+
 
 # Deploy the API
 resource "aws_api_gateway_deployment" "example_deployment" {

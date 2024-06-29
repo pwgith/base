@@ -6,7 +6,6 @@ provider "aws" {
 
 }
 
-
 resource "aws_lambda_function" "my_lambda" {
     function_name = var.lambda_name
     runtime = "python3.11"  # Replace with your desired runtime
@@ -43,4 +42,20 @@ resource "aws_iam_role" "lambda_role" {
     ]
 }
 EOF
+}
+
+resource "aws_iam_role_policy" "lambda_policy" {
+  name = "${var.lambda_name}-policy"
+  role = aws_iam_role.lambda_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = "lambda:InvokeFunction",
+        Resource = "${aws_lambda_function.my_lambda.arn}"
+      }
+    ]
+  })
 }
