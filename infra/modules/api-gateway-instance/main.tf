@@ -53,21 +53,21 @@ resource "aws_api_gateway_method_response" "example_method_response" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "example_integration_response" {
-  rest_api_id = aws_api_gateway_rest_api.example_api.id
-  resource_id = aws_api_gateway_resource.example_resource.id
-  http_method = aws_api_gateway_method.example_method.http_method
+# resource "aws_api_gateway_integration_response" "example_integration_response" {
+#   rest_api_id = aws_api_gateway_rest_api.example_api.id
+#   resource_id = aws_api_gateway_resource.example_resource.id
+#   http_method = aws_api_gateway_method.example_method.http_method
 
-  status_code = aws_api_gateway_method_response.example_method_response.status_code
+#   status_code = aws_api_gateway_method_response.example_method_response.status_code
 
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
-  }
+#   response_parameters = {
+#     "method.response.header.Access-Control-Allow-Origin" = "'*'"
+#   }
 
-  response_templates = {
-    "application/json" = ""
-  }
-}
+#   response_templates = {
+#     "application/json" = ""
+#   }
+# }
 
 
 
