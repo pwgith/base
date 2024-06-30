@@ -40,11 +40,6 @@ class LambdaHandler:
             self.error_response_model = self.load_model_from_file(os.path.join(models_dir, 'error_response_model.json'))
             self.basic_success_response_model = self.load_model_from_file(os.path.join(models_dir, 'basic_success_response_model.json'))
     
-
-    def get_logger(self):
-        with MethodLogger(module_logger, 'get_logger'):
-            return logging.getLogger()
-
     def set_generic_successful_response(self, status_code, body):
         with MethodLogger(module_logger, 'set_generic_successful_response'):
             self.response_model = self.basic_success_response_model
@@ -114,13 +109,13 @@ class LambdaHandler:
                 self.check_response()
                 result = True
             except HTTPError as e:
-                self.get_logger().warning(f'Lambda HTTP error: {e}')
+                module_logger.warning(f'Lambda HTTP error: {e}')
                 self.set_error_response(e.getHTTPReturnCode(), e.getHTTPReturnText())
             except ServerError as e:
-                self.get_logger().error(f'Lambda server error: {e}')
+                module_logger.error(f'Lambda server error: {e}')
                 self.set_error_response(e.getHTTPReturnCode(), e.getHTTPReturnText())
             except Exception as e:
-                self.get_logger().error(f'Unexpected error: {e}')
+                module_logger.error(f'Unexpected error: {e}')
                 self.set_error_response(500, 'Internal Server Error')
             return(result)
         
