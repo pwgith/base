@@ -70,14 +70,6 @@ resource "aws_api_gateway_integration_response" "example_integration_response" {
 }
 
 
-# Add Lambda Permission
-resource "aws_lambda_permission" "example_lambda_permission" {
-  statement_id  = "AllowAPIGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = var.lambda_function_name
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = aws_api_gateway_rest_api.example_api.execution_arn
-}
 
 
 # Deploy the API
