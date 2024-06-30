@@ -37,7 +37,7 @@ resource "aws_api_gateway_integration" "example_integration" {
   resource_id             = aws_api_gateway_resource.example_resource.id
   http_method             = aws_api_gateway_method.example_method.http_method
   integration_http_method = "GET"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = var.api_integration_invoke_arn
 }
 
