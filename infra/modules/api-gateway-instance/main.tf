@@ -25,6 +25,10 @@ resource "aws_api_gateway_method" "example_method" {
   resource_id   = aws_api_gateway_resource.example_resource.id
   http_method   = "GET"
   authorization = "NONE"
+
+  request_parameters = {
+    "method.request.header.Content-Type" = true
+  }
 }
 
 # Create Integration
@@ -35,31 +39,30 @@ resource "aws_api_gateway_integration" "example_integration" {
   integration_http_method = "GET"
   type                    = "AWS_PROXY"
   uri                     = var.api_integration_invoke_arn
-
-  request_templates = {
-    "application/json" = "{\"statusCode\": 200}"
-  }
 }
 
-# Create Method Response
-resource "aws_api_gateway_method_response" "example_response_200" {
+resource "aws_api_gateway_method_response" "example_method_response" {
   rest_api_id = aws_api_gateway_rest_api.example_api.id
   resource_id = aws_api_gateway_resource.example_resource.id
   http_method = aws_api_gateway_method.example_method.http_method
+
   status_code = "200"
 
-  response_models = {
-    "application/json" = "Empty"
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
   }
 }
 
-
-# Create Integration Response
-resource "aws_api_gateway_integration_response" "example_integration_response_200" {
+resource "aws_api_gateway_integration_response" "example_integration_response" {
   rest_api_id = aws_api_gateway_rest_api.example_api.id
   resource_id = aws_api_gateway_resource.example_resource.id
   http_method = aws_api_gateway_method.example_method.http_method
-  status_code = aws_api_gateway_method_response.example_response_200.status_code
+
+  status_code = aws_api_gateway_method_response.example_method_response.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
 
   response_templates = {
     "application/json" = ""
@@ -78,13 +81,13 @@ resource "aws_lambda_permission" "example_lambda_permission" {
 
 
 # Deploy the API
-resource "aws_api_gateway_deployment" "example_deployment" {
-  depends_on = [
-    aws_api_gateway_integration.example_integration,
-    aws_api_gateway_method_response.example_response_200,
-    aws_api_gateway_integration_response.example_integration_response_200,
-    aws_lambda_permission.example_lambda_permission
-  ]
-  rest_api_id = aws_api_gateway_rest_api.example_api.id
-  stage_name  = "dev"
-}
+# resource "aws_api_gateway_deployment" "example_deployment" {
+#   depends_on = [
+#     aws_api_gateway_integration.example_integration,
+#     aws_api_gateway_method_response.example_response_200,
+#     aws_api_gateway_integration_response.example_integration_response_200,
+#     aws_lambda_permission.example_lambda_permission
+#   ]
+#   rest_api_id = aws_api_gateway_rest_api.example_api.id
+#   stage_name  = "dev"
+# }
