@@ -114,7 +114,7 @@ class LambdaHandler:
                 self.check_response()
                 result = True
             except HTTPError as e:
-                self.get_logger().info(f'Lambda HTTP error: {e}')
+                self.get_logger().warning(f'Lambda HTTP error: {e}')
                 self.set_error_response(e.getHTTPReturnCode(), e.getHTTPReturnText())
             except ServerError as e:
                 self.get_logger().error(f'Lambda server error: {e}')
