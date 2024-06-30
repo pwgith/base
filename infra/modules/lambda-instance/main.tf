@@ -6,6 +6,23 @@ provider "aws" {
 
 }
 
+resource "aws_iam_role" "lambda_role" {
+  name = "lambda_execution_role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [{
+      Effect    = "Allow",
+      Principal = { Service = "lambda.amazonaws.com" },
+      Action    = "sts:AssumeRole"
+    }]
+  })
+
+  // Attach policies as needed
+  // e.g., CloudWatch Logs
+  // Assume more policies as needed
+}
+
+
 resource "aws_lambda_function" "my_lambda" {
     function_name = var.lambda_name
     runtime = "python3.11"  # Replace with your desired runtime
@@ -25,37 +42,4 @@ resource "aws_lambda_function" "my_lambda" {
     }
 }
 
-resource "aws_iam_role" "lambda_role" {
-    name = "${var.lambda_name}-role"
 
-    assume_role_policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "lambda.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-}
-EOF
-}
-
-resource "aws_iam_role_policy" "lambda_policy" {
-  name = "${var.lambda_name}-policy"
-  role = aws_iam_role.lambda_role.id
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Effect = "Allow",
-        Action = "lambda:InvokeFunction",
-        Resource = "${aws_lambda_function.my_lambda.arn}"
-      }
-    ]
-  })
-}
