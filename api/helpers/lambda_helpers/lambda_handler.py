@@ -7,7 +7,10 @@ import os
 from api.helpers.log_helpers.log_helper import prepare_log_string
 from api.helpers.log_helpers.method_logger import MethodLogger
 
+# Set up logging
 module_logger = logging.getLogger(__name__)
+log_level = os.getenv('LOG_LEVEL', 'WARNING').upper()
+module_logger.setLevel(getattr(logging, log_level, logging.INFO))
 
 class LambdaHandler:
     def load_model_from_file(self, file_name):
