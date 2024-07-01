@@ -61,3 +61,9 @@ resource "aws_api_gateway_stage" "example" {
   rest_api_id   = aws_api_gateway_rest_api.example_api.id
   stage_name    = "dev"
 }
+
+resource "aws_ssm_parameter" "api_endpoint" {
+  name  = "/example/api-endpoint"
+  type  = "String"
+  value = "https://${aws_api_gateway_rest_api.example_api.id}.execute-api.${var.aws_region}.amazonaws.com/dev/sample"
+}
