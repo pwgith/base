@@ -6,7 +6,10 @@
       "extensions": [
         "GitHub.copilot",
         "4ops.terraform",
-        "github.vscode-github-actions"
+        "github.vscode-github-actions",
+        "bierner.markdown-mermaid",
+        "yzhang.markdown-all-in-one"
+  
       ]
     }
   }
