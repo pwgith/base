@@ -7,7 +7,7 @@ graph TD;
     Authorisation[Authorisation Lambda]
     BFF[BFF API Lambda]
     BAPI[Business API Lambda]
-    DB[(RDB)]
+    DB[(Dynamo DB)]
 
     UI-->|1. Javascript files pulled from S3|S3
     UI-->|2. Login|Cognito
